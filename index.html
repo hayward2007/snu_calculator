@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서울대학교 정시 점수 계산기</title>
+    <style>
+
+        @font-face {
+            font-family: 'SNU';
+            /* font-weight: 100; */
+            src: url('assets/fonts/YoonMeolijeongche2B.ttf') format('truetype');
+        }
+        /* @font-face {
+            font-family: 'SNU';
+            font-weight: 200;
+            src: url('assets/fonts/YoonMeolijeongche2EB.ttf') format('truetype');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SNU';
+            font-weight: 300;
+            src: url('assets/fonts/YoonMeolijeongche2L.ttf') format('truetype');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SNU';
+            font-weight: 400;
+            src: url('assets/fonts/YoonMeolijeongche2M.ttf') format('truetype');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SNU';
+            font-weight: 500;
+            src: url('assets/fonts/YoonMeolijeongche2SC.ttf') format('truetype');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SNU';
+            font-weight: 600;
+            src: url('assets/fonts/YoonMeolijeongche2SN.ttf') format('truetype');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SNU';
+            font-weight: 700;
+            src: url('assets/fonts/YoonMeolijeongche2SO.ttf') format('truetype');
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SNU';
+            font-weight: 800;
+            src: url('assets/fonts/YoonMeolijeongche2SV.ttf') format('truetype');
+            font-display: swap;
+        } */
+
+        body {
+            font-family: 'SNU';
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            gap: 48px;
+        }
+
+        div {
+            font-family: 'SNU';
+            /* font-weight: 800; */
+        }
+    </style>
+</head>
+<body>
+    <img src="assets/logo.jpg" alt="서울대학교 로고" style="width: 450px; height: auto; user-select: none;">
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: start; gap: 20px;">
+        <div>
+            국어 표준점수
+            <input type="number" id="korean" placeholder="국어 표준점수">
+        </div>
+        <div>
+            수학 표준점수
+            <input type="number" id="math" placeholder="수학 표준점수">
+        </div>
+        <div>
+            영어 등급
+            <select id="english">
+                <option value="0">1</option>
+                <option value="-0.5">2</option>
+                <option value="-2.0">3</option>
+                <option value="-4.0">4</option>
+                <option value="-6.0">5</option>
+                <option value="-8.0">6</option>
+                <option value="-10.0">7</option>
+                <option value="-12.0">8</option>
+                <option value="-14.0">9</option>
+            </select>
+        </div>
+        <div>
+            한국사 등급
+            <select id="korean-history">
+                <option value="0">1</option>
+                <option value="0">2</option>
+                <option value="0">3</option>
+                <option value="-0.4">4</option>
+                <option value="-0.8">5</option>
+                <option value="-1.2">6</option>
+                <option value="-1.6">7</option>
+                <option value="-2.0">8</option>
+                <option value="-2.4">9</option>
+            </select>
+        </div>
+        <div>
+            탐구1 표준점수
+            <input type="number" id="inquiry-1" placeholder="탐구 표준점수">
+        </div>
+        <div>
+            탐구2 표준점수
+            <input type="number" id="inquiry-2" placeholder="탐구 표준점수">
+        </div>
+    </div>
+    
+    <button onclick="calculate()">계산하기</button>
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            const koreanScore = parseFloat(document.getElementById('korean').value);
+            const mathScore = parseFloat(document.getElementById('math').value);
+            const englishScore = parseFloat(document.getElementById('english').value);
+            const koreanHistoryScore = parseFloat(document.getElementById('korean-history').value);
+            const inquiry1Score = parseFloat(document.getElementById('inquiry-1').value);
+            const inquiry2Score = parseFloat(document.getElementById('inquiry-2').value);
+
+            if (isNaN(koreanScore) || isNaN(mathScore) || isNaN(englishScore) || isNaN(koreanHistoryScore) || isNaN(inquiry1Score) || isNaN(inquiry2Score)) {
+                document.getElementById('result').innerText = '모든 값을 입력해 주세요.';
+                return;
+            }
+            
+
+            const totalScore = koreanScore + mathScore * 1.2 + englishScore + ( inquiry1Score + inquiry2Score ) * 0.8;
+
+            document.getElementById('result').innerText = `총 점수: ${totalScore.toFixed(1)}`;
+        }
+    </script>
+
+</body>
+</html>
