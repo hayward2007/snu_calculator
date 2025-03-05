@@ -3,59 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
     <title>서울대학교 정시 점수 계산기</title>
     <style>
 
-        @font-face {
-            font-family: 'SNU';
-            /* font-weight: 100; */
-            src: url('assets/fonts/YoonMeolijeongche2B.ttf') format('truetype');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        /* @font-face {
-            font-family: 'SNU';
-            font-weight: 200;
-            src: url('assets/fonts/YoonMeolijeongche2EB.ttf') format('truetype');
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'SNU';
-            font-weight: 300;
-            src: url('assets/fonts/YoonMeolijeongche2L.ttf') format('truetype');
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'SNU';
-            font-weight: 400;
-            src: url('assets/fonts/YoonMeolijeongche2M.ttf') format('truetype');
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'SNU';
-            font-weight: 500;
-            src: url('assets/fonts/YoonMeolijeongche2SC.ttf') format('truetype');
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'SNU';
-            font-weight: 600;
-            src: url('assets/fonts/YoonMeolijeongche2SN.ttf') format('truetype');
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'SNU';
-            font-weight: 700;
-            src: url('assets/fonts/YoonMeolijeongche2SO.ttf') format('truetype');
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'SNU';
-            font-weight: 800;
-            src: url('assets/fonts/YoonMeolijeongche2SV.ttf') format('truetype');
-            font-display: swap;
-        } */
 
         body {
-            font-family: 'SNU';
+            font-family: 'SUIT Variable';
+            font-weight: 300;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -65,15 +25,54 @@
             gap: 48px;
         }
 
-        div {
-            font-family: 'SNU';
-            /* font-weight: 800; */
+        select, input {
+            width: 160px;
+            height: 32px;
+            text-align: center;
+            border-radius: 8px;
+            border: none;
+            background-color: #efefef;
+        }
+
+        select {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        #main div {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            font-size: large;
+        }
+
+        button {
+            width: 450px;
+            height: 45px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        #result {
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <img src="assets/logo.jpg" alt="서울대학교 로고" style="width: 450px; height: auto; user-select: none;">
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: start; gap: 20px;">
+    <div id="main" style="display: flex; flex-direction: column; justify-content: center; align-items: start; gap: 20px; width: 450px;">
         <div>
             국어 표준점수
             <input type="number" id="korean" placeholder="국어 표준점수">
@@ -135,12 +134,23 @@
             if (isNaN(koreanScore) || isNaN(mathScore) || isNaN(englishScore) || isNaN(koreanHistoryScore) || isNaN(inquiry1Score) || isNaN(inquiry2Score)) {
                 document.getElementById('result').innerText = '모든 값을 입력해 주세요.';
                 return;
+            } else if (koreanScore < 0 || koreanScore > 170 || mathScore < 0 || mathScore > 170 || englishScore < -14 || englishScore > 0 || koreanHistoryScore < -2.4 || koreanHistoryScore > 0 || inquiry1Score < 0 || inquiry1Score > 100 || inquiry2Score < 0 || inquiry2Score > 100) {
+                document.getElementById('result').innerText = '정상적인 범위의 값을 입력해주세요';
+                return;
             }
             
-
             const totalScore = koreanScore + mathScore * 1.2 + englishScore + ( inquiry1Score + inquiry2Score ) * 0.8;
 
-            document.getElementById('result').innerText = `총 점수: ${totalScore.toFixed(1)}`;
+            var text = `총 점수: ${totalScore.toFixed(1)}`;
+            if(totalScore >= 400) {
+                text += "\n 서울대학교 어디라도 갈 수 있겠네요!!";
+            } else {
+                text += "\n 서울대학교는 어렵네요 ㅠㅠ";
+            }
+
+            document.getElementById('result').innerText = text;
+
+
         }
     </script>
 
